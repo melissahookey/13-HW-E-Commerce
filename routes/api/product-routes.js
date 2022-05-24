@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const productData =  await Product.findAll({
     attributes: ['id', 'product_name', 'price', 'stock'],
@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
   }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const productData =  await Product.findByPk(req.params.id, {
       attributes: ['id', 'product_name', 'price', 'stock'],
@@ -43,7 +43,7 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const productData =  await Product.create(req.body);
     const productId= productData.id;
@@ -83,7 +83,7 @@ router.post('/', (req, res) => {
 });
 
 // update product
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
     const productData = await Product.update(req.body, {
       where: {
@@ -137,7 +137,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const productData = await Product.destroy({
       where: {
